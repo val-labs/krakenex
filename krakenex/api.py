@@ -23,7 +23,11 @@ import requests
 import time
 
 # private query signing
-import urllib.parse
+try:
+    from urllib.parse import urlencode
+except:
+    from urllib import urlencode
+    pass
 import hashlib
 import hmac
 import base64
@@ -209,7 +213,7 @@ class API(object):
         :type urlpath: str
         :returns: signature digest
         """
-        postdata = urllib.parse.urlencode(data)
+        postdata = urlencode(data)
 
         # Unicode-objects must be encoded before hashing
         encoded = (str(data['nonce']) + postdata).encode()
